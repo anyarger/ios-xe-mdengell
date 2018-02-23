@@ -1,0 +1,35 @@
+# Install the Python Requests library:
+# `pip install requests`
+
+import requests
+
+
+def send_request():
+    # Admin down g0/0/1 on ISR in Python
+    # PATCH https://172.26.170.253:443/restconf/data/Cisco-IOS-XE-native:native/interface/%22GigabitEthernet=0/0/1%22
+
+    try:
+        response = requests.patch(
+            url="https://172.26.170.253:443/restconf/data/Cisco-IOS-XE-native:native/interface/%22GigabitEthernet=0/0/1%22",
+            headers={
+                "Accept": "application/yang-data+json",
+                "Authorization": "Basic Y2lzY286QzFzZGV2b3Bz",
+                "Content-Type": "application/yang-data+json",
+            },
+            data="{
+  \"Cisco-IOS-XE-native:GigabitEthernet\": {
+    \"name\": \"0/0/1\",
+    \"shutdown\": [
+      null
+    ]
+}
+}"
+        )
+        print('Response HTTP Status Code: {status_code}'.format(
+            status_code=response.status_code))
+        print('Response HTTP Response Body: {content}'.format(
+            content=response.content))
+    except requests.exceptions.RequestException:
+        print('HTTP Request failed')
+
+
